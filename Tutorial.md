@@ -24,10 +24,11 @@ All the material was bought from [https://www.electrokit.com/](https://www.elect
 - [LiPo battery 3.7V 2200mAh](https://www.electrokit.com/produkt/batteri-lipo-18650-cell-3-7v-2200mah/) approximate cost: 5 EUR
 
 From the Arduino Explore IoT Kit these parts were used:
-- MKR WiFi 1010 board
-- IoT Carrier
-- USB-cable
+- Arduino MKR WiFi 1010
+- MKR IoT Carrier
+- Micro USB cable
 
+In the MKR IoT Carrier the HTS221 temperature and humidity sensor was used.
 >Explain all material that is needed. All sensors, where you bought them and their specifications. Please also provide pictures of what you have bought and are using.
 >- [ ] List of material
 >- [ ] What the different things (sensors, wires, controllers) do - short specifications
@@ -63,8 +64,17 @@ To start with we will be using the Arduino IoT Cloud platform, using the 1-year 
 >- [ ] *Explain and elaborate on what made you choose this platform
 
 ### The code
-
+Needed libraries:
+- Arduino_MKRIoTCarrier (make sure to install the library together with any needed dependencies)
 >Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here. Focus on the core functionalities. Have you done a specific function that does a calculation, or are you using a clever function for sending data on two networks? Or, are you checking if the value is reasonable, etc.? Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
+
+```c++=
+// import dependencies
+#include <Arduino_MKRIoTCarrier.h>
+
+// Instanciate the carrier-object
+MKRIoTCarrier carrier;
+```
 
 
 ```python=
@@ -107,3 +117,10 @@ s.send(package)
 >- [ ] Show the final results of the project
 >- [ ] Pictures
 >- [ ] Video presentation of the project
+
+### References
+- [Arduino Language Reference](https://www.arduino.cc/reference/en/)
+- [All built in Arduino code examples](https://docs.arduino.cc/built-in-examples/)
+- [How to use the Arduino_MKRIoTCarrier library](https://www.arduino.cc/reference/en/libraries/arduino_mkriotcarrier/)
+- [MKR IoT Carrier Technical Reference/Cheat Sheet](https://docs.arduino.cc/tutorials/mkr-iot-carrier/mkr-iot-carrier-01-technical-reference)
+- [Arduino Basics](https://docs.arduino.cc/learn/)
