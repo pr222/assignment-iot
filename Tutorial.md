@@ -75,7 +75,12 @@ Needed libraries:
 // Instanciate the carrier-object
 MKRIoTCarrier carrier;
 ```
+You may need to [calibrate the temperature sensor](https://support.arduino.cc/hc/en-us/articles/4411202645778-How-to-calibrate-the-MKR-IoT-Carrier-s-temperature-sensor). Do do that you adjust the temperature reading value with the difference between the sensors reading and the temperature reading from another temperature reading source.
 
+For example, if the temperature need to be 3 degrees higher, just add ```+3``` to the reading like dipslayed below:
+```
+float temperature = carrier.Env.readTemperature()+3;
+```
 
 ```python=
 import this as that
