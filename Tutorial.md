@@ -24,7 +24,7 @@ All the material was bought from [https://www.electrokit.com/](https://www.elect
 - [LiPo battery 3.7V 2200mAh](https://www.electrokit.com/produkt/batteri-lipo-18650-cell-3-7v-2200mah/) approximate cost: 5 EUR
 
 From the Arduino Explore IoT Kit these parts were used:
-- Arduino MKR WiFi 1010
+- [Arduino MKR WiFi 1010](https://docs.arduino.cc/hardware/mkr-wifi-1010)
 - MKR IoT Carrier
 - Micro USB cable
 
@@ -34,13 +34,21 @@ In the MKR IoT Carrier the HTS221 temperature and humidity sensor was used.
 >- [ ] What the different things (sensors, wires, controllers) do - short specifications
 
 ### Computer setup
-The device was programmed by using a Mac computer with the installed Arduino 2.0 IDE. 
+The device was programmed by using a M1 Mac that also runs Rosetta and by using the installed Arduino 2.0 IDE. 
+
+- Using downloaded IDE
 
 The IDE can be dowloaded from [https://www.arduino.cc/en/Guide](https://www.arduino.cc/en/Guide)
 
 To do all necessary steps to get started follow the documentation at [https://docs.arduino.cc/](https://docs.arduino.cc/) and choose the ```MKR WIFI 1010``` board and continue by following ```Quickstart```.
 
 As the quickstart mentions you use the verify-button in the IDE to compile the code in order to make sure that everything runs correctly. Then make sure that the device is connected to the computer with the USB-cable and push the Upload-button to upload the code to the device. 
+
+- To use the web editor together with Arduino IoT Cloud
+
+In order to use the web editor, you need to download a [plugin](https://create.arduino.cc/getting-started/plugin/install) on your computer. [Welcome page to plugin](https://create.arduino.cc/getting-started/plugin/welcome). The preffered browsers to use with it is Chrome or Firefox.
+
+Make sure to register the kit on the Arduino webpage with an Arduino account.
 
 >How is the device programmed? Which IDE are you using? Describe all steps from flashing the firmware to installing plugins in your favorite editor and how flashing is done on MicroPython. The aim is that a beginner should be able to understand.
 >- [x] Chosen IDE
@@ -129,3 +137,12 @@ s.send(package)
 - [How to use the Arduino_MKRIoTCarrier library](https://www.arduino.cc/reference/en/libraries/arduino_mkriotcarrier/)
 - [MKR IoT Carrier Technical Reference/Cheat Sheet](https://docs.arduino.cc/tutorials/mkr-iot-carrier/mkr-iot-carrier-01-technical-reference)
 - [Arduino Basics](https://docs.arduino.cc/learn/)
+- [Getting started with IoT Cloud - official](https://docs.arduino.cc/cloud/iot-cloud)
+- [Getting started with IoT Cloud - in project hub](https://create.arduino.cc/projecthub/133030/iot-cloud-getting-started-c93255)
+- [Troubleshooting connection to IoT Cloud](https://support.arduino.cc/hc/en-us/articles/360019355679-If-your-device-can-t-be-added-or-won-t-connect-to-IoT-Cloud)
+- [IoT Cloud Technical Reference/Cheat sheet](https://docs.arduino.cc/cloud/iot-cloud/tutorials/technical-reference)
+- [Update wifi firmware and upload SSL certs - approximate guide](https://docs.arduino.cc/tutorials/generic/firmware-updater)
+- [Another certificate docs, closer to my actual flow](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-)
+- [Solution for connectivity issues in Arduino IoT Cloud](https://forum.arduino.cc/t/new-topic-error-in-iot-cloud-kit-tutorial/848136/5)
+- [Extra - Connect with WifiNINA lib](https://www.arduino.cc/en/Guide/MKRWiFi1010/connecting-to-wifi-network)
+- [WifiNINA reference](https://www.arduino.cc/reference/en/libraries/wifinina/)
