@@ -23,15 +23,35 @@ All the material was bought from [https://www.electrokit.com/](https://www.elect
 - [Arduino Explore IoT Kit](https://www.electrokit.com/produkt/arduino-explore-iot-kit/) approximate cost: 130 EUR
 - [LiPo battery 3.7V 2200mAh](https://www.electrokit.com/produkt/batteri-lipo-18650-cell-3-7v-2200mah/) approximate cost: 5 EUR
 
-From the Arduino Explore IoT Kit these parts were used:
+**From the Arduino Explore IoT Kit** these parts were used:
 - [Arduino MKR WiFi 1010](https://docs.arduino.cc/hardware/mkr-wifi-1010)
-- MKR IoT Carrier
-- Micro USB cable
+- [MKR IoT Carrier](https://docs.arduino.cc/hardware/mkr-iot-carrier)
+- Micro USB cable.
+- Protective plastic case.
+- Cable to connect power to the controller from the board when a battery is used within the board/carrier.
 
-In the MKR IoT Carrier the HTS221 temperature and humidity sensor was used.
+With the MKR IoT Carrier the built-in HTS221 temperature- and humidity-sensor was utilized, as well as the display and touch buttons for presenting sensor readings directly on the board itself.
 >Explain all material that is needed. All sensors, where you bought them and their specifications. Please also provide pictures of what you have bought and are using.
->- [ ] List of material
+>- [x] List of material
 >- [ ] What the different things (sensors, wires, controllers) do - short specifications
+
+![microcontroller](./images/microcontroller.jpg)
+The Arduino MKR WiFi 1010 micro controller and with the connected micro USB cable.
+
+![carrier-top](./images/carrier-up.jpg)
+![carrier-bottom](./images/carrier-down.jpg)
+The MKR IoT Carrier top and bottom without anything connected to it.
+
+![carrier-sensors](./images/carrier-sensors.jpg)
+The placement of the [HTS221](https://www.st.com/resource/en/datasheet/hts221.pdf) sensor which reads humidity and temperature. The temperature has an accuracy of ± 0.5 °C and works within the ranges of 15 to +40 °C. The humidity has an accuracy of ± 3.5% rH and works withing humid ranges between 20 to +80% rH. The carrier uses the I2C protocol to communicate sensor readings to the controller.
+
+![plastic-case](./images/case.jpg)
+Plastic case for protecting the device. The case is designed so that you can still connect external sensors to the controller and connect with the micro USB cable.
+
+![lipo-battery](./images/battery.jpg)
+The lithium battery that can be used with the carrier (not included in the Arduino Explore IoT Kit), which enables the device to be run wirelessly. However, the battery will only have enough charge for lasting for about two days or so but it can be re-charged with a micro USB cable to the controller. 
+
+
 
 ### Computer setup
 The device was programmed by using a M1 Mac that also runs Rosetta and by using the installed Arduino 2.0 IDE. 
@@ -56,6 +76,13 @@ Make sure to register the kit on the Arduino webpage with an Arduino account.
 >- [ ] Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
 
 ### Putting everything together
+![connect-controller](./images/connect-controller.jpg)
+When connecting the controller to the carrier it is important to make sure that the pins match, for example you can see in the image that the GND-pin marked with white coloron bothe the controller and the carrier. It is also important to try keeping the pins as straight as possible.
+
+![carrier-assembly](./images/carrier-assembly.jpg)
+Use the included black- and red- cable to make a connection between the controller and the carrier. This enables the controller to get energy to the battery that is connected to the carrier and the controller can also charge the battery by connecting the controller with a micro USB cable. When connecting the battery to the carrier, it is important to make sure that the positive and negative side matches. On the battery [the minus side is completely flat](https://www.large.net/news/8ju43mh.html) and should be on the side marked with a minus side as seen in the previous image of the bottom side of the carrier.
+
+The MKR IoT Carrier operates only on 3.3V
 
 >How is all the electronics connected? Describe all the wiring. Good if you can show a circuit diagram. Be specific on how to connect everything and what to think of in terms of resistors, current, and voltage. Is this only for a development setup, or could it be used in production?
 >- [ ] Circuit diagram (can be hand drawn)
@@ -125,6 +152,9 @@ s.send(package)
 
 
 ### Finalizing the design
+![connected-device](./images/everything-connected.jpg)
+![device-in-case](./images/device-in-case.jpg)
+
 
 >Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in another way, or even better? Some pictures are nice!
 >- [ ] Show the final results of the project
@@ -146,3 +176,6 @@ s.send(package)
 - [Solution for connectivity issues in Arduino IoT Cloud](https://forum.arduino.cc/t/new-topic-error-in-iot-cloud-kit-tutorial/848136/5)
 - [Extra - Connect with WifiNINA lib](https://www.arduino.cc/en/Guide/MKRWiFi1010/connecting-to-wifi-network)
 - [WifiNINA reference](https://www.arduino.cc/reference/en/libraries/wifinina/)
+- [Using Webhooks](https://docs.arduino.cc/cloud/iot-cloud/tutorials/webhooks)
+- [Using Node-RED](https://docs.arduino.cc/cloud/iot-cloud/tutorials/nodered)
+- [I2C protocol](https://docs.arduino.cc/learn/communication/wire)
