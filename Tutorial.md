@@ -28,18 +28,17 @@ All the material was bought from [https://www.electrokit.com/](https://www.elect
 - [MKR IoT Carrier](https://docs.arduino.cc/hardware/mkr-iot-carrier)
 - Micro USB cable.
 - Protective plastic case.
-- Cable to connect power to the controller from the board when a battery is used within the board/carrier.
+- Cable to connect power to the controller from the board when a battery is used within the carrier.
 
-With the MKR IoT Carrier the built-in HTS221 temperature- and humidity-sensor was utilized, as well as the display and touch buttons for presenting sensor readings directly on the board itself.
->Explain all material that is needed. All sensors, where you bought them and their specifications. Please also provide pictures of what you have bought and are using.
->- [x] List of material
->- [ ] What the different things (sensors, wires, controllers) do - short specifications
+With the MKR IoT Carrier the built-in HTS221 temperature- and humidity-sensor was utilized, as well as the display and touch buttons for presenting sensor readings directly on the carrier itself.
+
 
 ![microcontroller](./images/microcontroller.jpg)
 The Arduino MKR WiFi 1010 micro controller and with the connected micro USB cable.
 
 ![carrier-top](./images/carrier-up.jpg)
 ![carrier-bottom](./images/carrier-down.jpg)
+![carrier-closeup](./images/carrier-closeup.jpg)
 The MKR IoT Carrier top and bottom without anything connected to it.
 
 ![carrier-sensors](./images/carrier-sensors.jpg)
@@ -51,6 +50,8 @@ Plastic case for protecting the device. The case is designed so that you can sti
 ![lipo-battery](./images/battery.jpg)
 The lithium battery that can be used with the carrier (not included in the Arduino Explore IoT Kit), which enables the device to be run wirelessly. However, the battery will only have enough charge for lasting for about two days or so but it can be re-charged with a micro USB cable to the controller. 
 
+![cable-to-connect](./images/cable-to-connect.jpg)
+The back- and red-cable to connect the carrier to the mounted controller when using the battery.
 
 
 ### Computer setup
@@ -82,11 +83,15 @@ When connecting the controller to the carrier it is important to make sure that 
 ![carrier-assembly](./images/carrier-assembly.jpg)
 Use the included black- and red- cable to make a connection between the controller and the carrier. This enables the controller to get energy to the battery that is connected to the carrier and the controller can also charge the battery by connecting the controller with a micro USB cable. When connecting the battery to the carrier, it is important to make sure that the positive and negative side matches. On the battery [the minus side is completely flat](https://www.large.net/news/8ju43mh.html) and should be on the side marked with a minus side as seen in the previous image of the bottom side of the carrier.
 
-The MKR IoT Carrier operates only on 3.3V
+The MKR IoT Carrier operates only on 3.3V but is designed to work with a LiPo-battery that has 3.7V. That is good to keep in mind when looking for external sensors to connect with, so you don't accidentally try connecting something that requires for example 5.5V in order to operate. 
 
->How is all the electronics connected? Describe all the wiring. Good if you can show a circuit diagram. Be specific on how to connect everything and what to think of in terms of resistors, current, and voltage. Is this only for a development setup, or could it be used in production?
->- [ ] Circuit diagram (can be hand drawn)
->- [ ] *Electrical calculations
+However, the carrier does also have two built-in relays with two separate "high power pins" which are capable to handle up to 24V each. An example use of these relays could be to control an external lamp switching it on and off by controlling those higher power pins that connects to an 24V-battery and the lamp. With a maximum capacity to handle 24V, it also means that the carrier should never in any way be connected to a standard power outlet in the wall.
+
+With so many features, form factor and different sensors that the carrier provides it is a very well designed consumer-level product, perfect for the IoT enthusiast. The features used here are just a small part of what is possible to experiment with. 
+
+For more professional setting it becomes much of a question about if the particular use case is broad enough to justify the price, as you can get away with much less if you only are looking for one or two things. On the other hand the form factor could be a benefit if the usage of breadboards is too clumsy.
+
+An important aspect could also be the short battery life as the carrier draws out the battery within a couple of days, depending on the battery. For professional use that may not be enough time for a wireless connection. Then the consideration for where to place it comes into play, since it needs to always be connected to a power source through the micro USB cable. 
 
 ### Platform
 To start with we will be using the Arduino IoT Cloud platform, using the 1-year tiers that are included with the kit-purchase. 
@@ -154,7 +159,8 @@ s.send(package)
 ### Finalizing the design
 ![connected-device](./images/everything-connected.jpg)
 ![device-in-case](./images/device-in-case.jpg)
-
+![temp-reading](./images/temp-reading.jpg)
+![humid-reading](./images/humid-reading.jpg)
 
 >Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in another way, or even better? Some pictures are nice!
 >- [ ] Show the final results of the project
