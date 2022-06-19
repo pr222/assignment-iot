@@ -62,28 +62,31 @@ The device was programmed by using a M1 Mac that also runs Rosetta and by using 
 
 An arduino account was created and the bought kit was registered in order to access its included one year of the [Arduino Maker Plan](https://www.arduino.cc/cloud/plans). 
 
-The server- and client-application is built with [next.js](https://nextjs.org/) which runs in a [node.js](https://nodejs.org/en/) environment, node also needs to be installed on the computer. For this, [git](https://git-scm.com/) was used for version control and the code was written in the IDE [Visual Studio Code](https://code.visualstudio.com/). [React Apex Charts](https://www.npmjs.com/package/react-apexcharts) was used on the client side for displaying the diagrams. 
+The server- and client-application is built with [Next.js](https://nextjs.org/) which runs in a [Node.js](https://nodejs.org/en/) environment, Node also needs to be installed on the computer. For this, [Git](https://git-scm.com/) was used for version control and the code was written in the IDE [Visual Studio Code](https://code.visualstudio.com/). [React Apex Charts](https://www.npmjs.com/package/react-apexcharts) was used on the client side for displaying the diagrams. [Moment](https://www.npmjs.com/package/moment) is used both on the serverside and clientside to handle dates more easily than what is provided by the javascript's Date() class.
 
 - Using downloaded IDE for Arduino:
 
-The IDE can be dowloaded from [https://www.arduino.cc/en/Guide](https://www.arduino.cc/en/Guide)
+    The IDE can be dowloaded from [https://www.arduino.cc/en/Guide](https://www.arduino.cc/en/Guide)
 
-To do all necessary steps to get started follow the documentation at [https://docs.arduino.cc/](https://docs.arduino.cc/) and choose the ```MKR WIFI 1010``` board and continue by following ```Quickstart```.
+    To do all necessary steps to get started follow the documentation at [https://docs.arduino.cc/](https://docs.arduino.cc/) and choose the ```MKR WIFI 1010``` board and continue by following ```Quickstart```.
 
-As the quickstart mentions you use the verify-button in the IDE to compile the code in order to make sure that everything runs correctly. Then make sure that the device is connected to the computer with the USB-cable and push the Upload-button to upload the code to the device. 
+    As the quickstart mentions you use the verify-button in the IDE to compile the code in order to make sure that everything runs correctly. Then make sure that the device is connected to the computer with the USB-cable and push the Upload-button to upload the code to the device. 
 
 - To use the web editor together with Arduino IoT Cloud:
 
-In order to use the web editor, you need to download a [plugin](https://create.arduino.cc/getting-started/plugin/install) on your computer. [Welcome page to plugin](https://create.arduino.cc/getting-started/plugin/welcome). The preffered browsers to use with it is Chrome or Firefox. So by using the browser you can log in to the Arduino IoT Cloud and ude the web editor there.
+    In order to use the web editor, you need to download a [plugin](https://create.arduino.cc/getting-started/plugin/install) on your computer. [Welcome page to plugin](https://create.arduino.cc/getting-started/plugin/welcome). The preffered browsers to use with it is Chrome or Firefox. So by using the browser you can log in to the Arduino IoT Cloud and ude the web editor there.
 
-However, using the web editor ended up not being as user friendly and reliable as using the downloaded IDE as the controller easily lost connection without reliably re-connecting. On the other hand the web editor should also enable transfering code to the controller wirelessly over WiFi once the controller has code that connects to the Arduino Cloud and is online. 
+    However, using the web editor ended up not being as user friendly and reliable as using the downloaded IDE as the controller easily lost connection without reliably re-connecting. On the other hand the web editor should also enable transfering code to the controller wirelessly over WiFi once the controller has code that connects to the Arduino Cloud and is online. 
 
-You can access the code in the web editor from the downloaded IDE by logging in to your account and pull the code from the cloud, edit and then push it to the cloud to update the code. You can choose freely wether to transfer the code to the controller from the downloaded IDE or the web editor then. 
+    You can access the code in the web editor from the downloaded IDE by logging in to your account and pull the code from the cloud, edit and then push it to the cloud to update the code. You can choose freely whether to transfer the code to the controller from the downloaded IDE or the web editor afterwards. [See more about syncing sketches](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-cloud-sketch-sync).
 
 - Handle Arduino libraries:
-When using the downloaded IDE you need to install needed libraries to your computer, which you can do through the IDE itself. For the web editor you should not need to install libraries as they are already available in the Adruino Cloud.
 
+    When using the downloaded IDE you need to install needed libraries to your computer, which you can do through the IDE itself. For the web editor you should not need to install libraries as they are already available in the Adruino Cloud. [See more about how to install libraries](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library).
 
+- Using the Serial Monitor:
+  
+    The [Serial Monitor](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor) is very useful to use when developing for the controller, since that is where you can see information about errors that occurs when running the code and when you still have the controller connected to the computer.
 
 ### Putting everything together
 ![connect-controller](./images/connect-controller.jpg)
@@ -114,23 +117,33 @@ To start with we will be using the Arduino IoT Cloud platform, using the 1-year 
 
 ### The code
 Needed libraries:
-- Arduino_MKRIoTCarrier (make sure to install the library together with any needed dependencies)
->Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here. Focus on the core functionalities. Have you done a specific function that does a calculation, or are you using a clever function for sending data on two networks? Or, are you checking if the value is reasonable, etc.? Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
+- Arduino_MKRIoTCarrier (make sure to install the library together with any needed dependencies when prompted)
+- For any libraries needed for the Arduino IoT Cloud, those will automatically be generated to the cloud sketch when setting up the thing in the [IoT Cloud](https://create.arduino.cc/iot/).
 
-```c++=
-// import dependencies
-#include <Arduino_MKRIoTCarrier.h>
+About the files in the [repository](https://github.com/pr222/arduino):
+- The [Carrier Display](https://github.com/pr222/arduino/blob/main/carrier-display.ino) sketch can be independently uploaded to the controller. It enables you to show latest readings of temperature and humidity on the carrier's screen. 
 
-// Instanciate the carrier-object
-MKRIoTCarrier carrier;
-```
+- The [Cloud Connection](https://github.com/pr222/arduino/blob/main/cloud-connection.ino) and [Cloud and Display](https://github.com/pr222/arduino/blob/main/cloud-and-display.ino) are both dependend on being part of the setup created in Arduino IoT Cloud. In the **Cloud Connection**-file you see how I got the connection working for the thing to get connected to the cloud. It was a big struggle to get it to work with what order the lines work best with and where to put necessary delays for letting everything run smoothly without crashing. The main probable culprit that I could indentify researching discussions online was that in order to keep the cloud-connection running is that ```ArduinoCloud.update();``` needs to be called without too much delays in between, therefore long and demanding loops are not recommended. The **Cloud and Display**-file is essentially a mix of the cloud connection and the previous carrier's display code, this time reading both temperature and humidity to the cloud, compared to only reading the temperature in the first cloud connected sketch.
+
+By connecting to the Arduino IoT Cloud it enables in the background the WiFi connection. So there is no need to write any extra code for enabling the WiFi connection. However, you still may need to update the [WiFi NINA firmware](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-fw-cert-uploader) as well as uploading [root-certificates](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-fw-cert-uploader) to the controller. You also need to add the name and the password for your WiFi in the Cloud sketch's tab/file called ```arduino_secrets.h```. This way your WiFi credentials should be handled safely, and that is also why all the files that are generated by Arduino Cloud has not been provided in the repositories with the Arduino code.
+
+Code that you may want to adjust for your needs: 
+
 You may need to [calibrate the temperature sensor](https://support.arduino.cc/hc/en-us/articles/4411202645778-How-to-calibrate-the-MKR-IoT-Carrier-s-temperature-sensor). Do do that you adjust the temperature reading value with the difference between the sensors reading and the temperature reading from another temperature reading source.
 
 For example, if the temperature need to be 3 degrees higher, just add ```+3``` to the reading like dipslayed below:
 ```
-float temperature = carrier.Env.readTemperature()+3;
+temperature = carrier.Env.readTemperature()+3;
 ```
 
+Depending on if you plan to use the protecting case for the carrier you may want to change the ```CARRIER_CASE``` to true so that the sensor readings will adjust to that. If not specifying the variable it will default to false, so just add this in the setup()-function:
+```
+CARRIER_CASE = true;
+```
+
+The code for the server and client application is available in the [Home Environment](https://github.com/pr222/home-environment) repository. The server provides an API that communicates with the Arduino's IoT Cloud REST API and queries the REST API for 1 sensor reading per hour for one day (for both temperature and humidity) and returns the result to the client. The client only needs to specify in the request URL a query with the date formatted as YYYY-MM-DD. The server also lets the client ask for weather-readings that the server gets from [SMHI's Open API](http://opendata.smhi.se/apidocs/metobs/index.html). The client application then presents a diagram for one 24-hour day with data of temperature and humidity from the IoT thing as well as the weather information. The client application also lets the user choose from a calendar which day to present readings from.
+
+The application is deployed at: [https://home-environment-lv2xivy73-pr222.vercel.app/](https://home-environment-lv2xivy73-pr222.vercel.app/)
 
 ### Data flow / Connectivity
 - Vireless protocols used: WiFi
@@ -175,10 +188,9 @@ float temperature = carrier.Env.readTemperature()+3;
 - [Troubleshooting connection to IoT Cloud](https://support.arduino.cc/hc/en-us/articles/360019355679-If-your-device-can-t-be-added-or-won-t-connect-to-IoT-Cloud)
 - [IoT Cloud Technical Reference/Cheat sheet](https://docs.arduino.cc/cloud/iot-cloud/tutorials/technical-reference)
 - [Solution for connectivity issues in Arduino IoT Cloud](https://forum.arduino.cc/t/new-topic-error-in-iot-cloud-kit-tutorial/848136/5)
-- [Update wifi firmware and upload SSL certs - approximate guide](https://docs.arduino.cc/tutorials/generic/firmware-updater)
-- [Another certificate docs, closer to my actual flow](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-)
 - [Extra - Connect with WifiNINA lib](https://www.arduino.cc/en/Guide/MKRWiFi1010/connecting-to-wifi-network)
 - [WifiNINA reference](https://www.arduino.cc/reference/en/libraries/wifinina/)
 - [Using Webhooks](https://docs.arduino.cc/cloud/iot-cloud/tutorials/webhooks)
 - [Using Node-RED](https://docs.arduino.cc/cloud/iot-cloud/tutorials/nodered)
 - [I2C protocol](https://docs.arduino.cc/learn/communication/wire)
+- [Bluethooth](https://www.arduino.cc/reference/en/libraries/arduinoble/)
