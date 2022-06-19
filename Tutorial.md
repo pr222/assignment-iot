@@ -5,18 +5,20 @@
 Author: Pauliina Raitaniemi (pr222ja)
 
 Estimated time: 
-- About 8 hours without troubleshooting
+- About 8 hours (without any troubleshooting)
 
-> Project overview....
-
+This is a project for reading temperature and humidity at home to present daily readings in a diagram, together with weather readings from a weather station.
 
 
 ### Objective
 
->Describe why you have chosen to build this specific device. What purpose does it serve? What do you want to do with the data, and what new insights do you think it will give?
->- [ ] Why you chose the project
->- [ ] What purpose does it serve
->- [ ] What insights do you think it will give
+As the summers can be quite hot it would be interesting whether the inside temperature is affected in any way by the outside weather. For the scope of this project the IoT device will only make readings from inside with a WiFi connection. 
+
+The outside readings will be relied by an Open API from a weather station, in a more IoT-way of doing this an another device for outside readings would have been interesting to get more precise data to compare with. 
+
+Humidity readings are also included in order to see if a humidifyer could be justified to buy and if it is bought, to check that it keeps the humidity within accepted ranges. Perhaps the weather humidity somehow also could give some unexpected insights. 
+
+In order to have enough detailed readings to view the client application provides data for any chosen day with a 1-hour interval for that day. 
 
 
 
@@ -105,8 +107,30 @@ For more professional setting it becomes much of a question about if the particu
 
 An important aspect could also be the short battery life as the carrier draws out the battery within a couple of days, depending on the battery. For professional use that may not be enough time for a wireless connection. Then the consideration for where to place it comes into play, since it needs to always be connected to a power source through the micro USB cable. 
 
+
+
 ### Platform
-To start with we will be using the Arduino IoT Cloud platform, using the 1-year tiers that are included with the kit-purchase. 
+To start with we will be using the Arduino IoT Cloud platform, using the 1-year Maker-tier that is included with the kit-purchase. Otherwise the plan costs about 6$ per month as a monthly subscription. 
+
+The most important differences between the free and the Maker plan:
+
+
+|           | Free | Maker |
+|-----------|------|-------|
+| Cost      |  No  | 5.99 $/month |
+| Things    |  2   |  25   |
+| Variables |  5   | unlimited |
+| Cloud Data Retention | 1 day | 3 months |
+| Cloud API | No | 10 req/sec |
+| Over-Air Updates | No | Yes |
+
+ See more about the [Cloud Plans](https://www.arduino.cc/cloud/plans).
+
+Since this is a quite small IoT project we could get away with only the free plan, if it would not be for that we are using the Cloud API in this instance and the data retention with the Maker plan is beneficial for accessing data over a longer period of time. 
+
+The Arduino IoT Cloud abstracts away quite a lot when it comes to handling and setting up the connection between the thing and the internet. It makes it easy to get started in order to faster getting to explore the things you could do with the MKR 1010 and the IoT Carrier in the kit. 
+
+However, there are lost of possibilities to not having to use the paid plan and in that case we need to firstly consider how and where to store data for a longer period than just one day and secondly how to access this data.
 
 >Describe your choice of platform. If you have tried different platforms, it can be good to provide a comparison.
 
@@ -116,6 +140,11 @@ To start with we will be using the Arduino IoT Cloud platform, using the 1-year 
 >- [ ] *Explain and elaborate on what made you choose this platform
 
 ### The code
+
+- Thing code: [https://github.com/pr222/arduino](https://github.com/pr222/arduino) 
+- Application code: [https://github.com/pr222/home-environment](https://github.com/pr222/home-environment) 
+- Deployed at: [https://home-environment-lv2xivy73-pr222.vercel.app/](https://home-environment-lv2xivy73-pr222.vercel.app/)
+
 Needed libraries:
 - Arduino_MKRIoTCarrier (make sure to install the library together with any needed dependencies when prompted)
 - For any libraries needed for the Arduino IoT Cloud, those will automatically be generated to the cloud sketch when setting up the thing in the [IoT Cloud](https://create.arduino.cc/iot/).
@@ -143,7 +172,7 @@ CARRIER_CASE = true;
 
 The code for the server and client application is available in the [Home Environment](https://github.com/pr222/home-environment) repository. The server provides an API that communicates with the Arduino's IoT Cloud REST API and queries the REST API for 1 sensor reading per hour for one day (for both temperature and humidity) and returns the result to the client. The client only needs to specify in the request URL a query with the date formatted as YYYY-MM-DD. The server also lets the client ask for weather-readings that the server gets from [SMHI's Open API](http://opendata.smhi.se/apidocs/metobs/index.html). The client application then presents a diagram for one 24-hour day with data of temperature and humidity from the IoT thing as well as the weather information. The client application also lets the user choose from a calendar which day to present readings from.
 
-The application is deployed at: [https://home-environment-lv2xivy73-pr222.vercel.app/](https://home-environment-lv2xivy73-pr222.vercel.app/)
+
 
 ### Data flow / Connectivity
 - Vireless protocols used: WiFi
@@ -171,9 +200,10 @@ The application is deployed at: [https://home-environment-lv2xivy73-pr222.vercel
 ![device-in-case](./images/device-in-case.jpg)
 ![temp-reading](./images/temp-reading.jpg)
 ![humid-reading](./images/humid-reading.jpg)
-
+![application-today](./images/application-today.png)
+![application-yesterday](./images/application-yesterday.png)
 >Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in another way, or even better? Some pictures are nice!
->- [ ] Show the final results of the project
+>- [x] Show the final results of the project
 >- [x] Pictures
 >- [ ] Video presentation of the project
 
@@ -188,9 +218,9 @@ The application is deployed at: [https://home-environment-lv2xivy73-pr222.vercel
 - [Troubleshooting connection to IoT Cloud](https://support.arduino.cc/hc/en-us/articles/360019355679-If-your-device-can-t-be-added-or-won-t-connect-to-IoT-Cloud)
 - [IoT Cloud Technical Reference/Cheat sheet](https://docs.arduino.cc/cloud/iot-cloud/tutorials/technical-reference)
 - [Solution for connectivity issues in Arduino IoT Cloud](https://forum.arduino.cc/t/new-topic-error-in-iot-cloud-kit-tutorial/848136/5)
-- [Extra - Connect with WifiNINA lib](https://www.arduino.cc/en/Guide/MKRWiFi1010/connecting-to-wifi-network)
+- [Connect with WifiNINA library to MKR1010](https://www.arduino.cc/en/Guide/MKRWiFi1010/connecting-to-wifi-network)
 - [WifiNINA reference](https://www.arduino.cc/reference/en/libraries/wifinina/)
-- [Using Webhooks](https://docs.arduino.cc/cloud/iot-cloud/tutorials/webhooks)
-- [Using Node-RED](https://docs.arduino.cc/cloud/iot-cloud/tutorials/nodered)
-- [I2C protocol](https://docs.arduino.cc/learn/communication/wire)
-- [Bluethooth](https://www.arduino.cc/reference/en/libraries/arduinoble/)
+- [Using Webhooks with IoT Cloud](https://docs.arduino.cc/cloud/iot-cloud/tutorials/webhooks)
+- [Using Node-RED with IoT Cloud](https://docs.arduino.cc/cloud/iot-cloud/tutorials/nodered)
+- [Using I2C protocol on Arduino](https://docs.arduino.cc/learn/communication/wire)
+- [Using Bluethooth library on Arduino](https://www.arduino.cc/reference/en/libraries/arduinoble/)
