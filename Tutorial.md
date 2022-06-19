@@ -1,13 +1,15 @@
-# How to build a temperature and humidity sensor
+# How to create a IoT project for monitoring a home environment
 
 ## Overview
 
 Author: Pauliina Raitaniemi (pr222ja)
 
 Estimated time: 
-- 20 min (setup environment)
+- About 8 hours without troubleshooting
 
 > Project overview....
+
+
 
 ### Objective
 
@@ -15,6 +17,7 @@ Estimated time:
 >- [ ] Why you chose the project
 >- [ ] What purpose does it serve
 >- [ ] What insights do you think it will give
+
 
 
 ### Material
@@ -31,7 +34,6 @@ All the material was bought from [https://www.electrokit.com/](https://www.elect
 - Cable to connect power to the controller from the board when a battery is used within the carrier.
 
 With the MKR IoT Carrier the built-in HTS221 temperature- and humidity-sensor was utilized, as well as the display and touch buttons for presenting sensor readings directly on the carrier itself.
-
 
 ![microcontroller](./images/microcontroller.jpg)
 The Arduino MKR WiFi 1010 micro controller and with the connected micro USB cable.
@@ -54,10 +56,15 @@ The lithium battery that can be used with the carrier (not included in the Ardui
 The back- and red-cable to connect the carrier to the mounted controller when using the battery.
 
 
+
 ### Computer setup
 The device was programmed by using a M1 Mac that also runs Rosetta and by using the installed Arduino 2.0 IDE. 
 
-- Using downloaded IDE
+An arduino account was created and the bought kit was registered in order to access its included one year of the [Arduino Maker Plan](https://www.arduino.cc/cloud/plans). 
+
+The server- and client-application is built with [next.js](https://nextjs.org/) which runs in a [node.js](https://nodejs.org/en/) environment, node also needs to be installed on the computer. For this, [git](https://git-scm.com/) was used for version control and the code was written in the IDE [Visual Studio Code](https://code.visualstudio.com/). [React Apex Charts](https://www.npmjs.com/package/react-apexcharts) was used on the client side for displaying the diagrams. 
+
+- Using downloaded IDE for Arduino:
 
 The IDE can be dowloaded from [https://www.arduino.cc/en/Guide](https://www.arduino.cc/en/Guide)
 
@@ -65,16 +72,18 @@ To do all necessary steps to get started follow the documentation at [https://do
 
 As the quickstart mentions you use the verify-button in the IDE to compile the code in order to make sure that everything runs correctly. Then make sure that the device is connected to the computer with the USB-cable and push the Upload-button to upload the code to the device. 
 
-- To use the web editor together with Arduino IoT Cloud
+- To use the web editor together with Arduino IoT Cloud:
 
-In order to use the web editor, you need to download a [plugin](https://create.arduino.cc/getting-started/plugin/install) on your computer. [Welcome page to plugin](https://create.arduino.cc/getting-started/plugin/welcome). The preffered browsers to use with it is Chrome or Firefox.
+In order to use the web editor, you need to download a [plugin](https://create.arduino.cc/getting-started/plugin/install) on your computer. [Welcome page to plugin](https://create.arduino.cc/getting-started/plugin/welcome). The preffered browsers to use with it is Chrome or Firefox. So by using the browser you can log in to the Arduino IoT Cloud and ude the web editor there.
 
-Make sure to register the kit on the Arduino webpage with an Arduino account.
+However, using the web editor ended up not being as user friendly and reliable as using the downloaded IDE as the controller easily lost connection without reliably re-connecting. On the other hand the web editor should also enable transfering code to the controller wirelessly over WiFi once the controller has code that connects to the Arduino Cloud and is online. 
 
->How is the device programmed? Which IDE are you using? Describe all steps from flashing the firmware to installing plugins in your favorite editor and how flashing is done on MicroPython. The aim is that a beginner should be able to understand.
->- [x] Chosen IDE
->- [x] How the code is uploaded
->- [ ] Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
+You can access the code in the web editor from the downloaded IDE by logging in to your account and pull the code from the cloud, edit and then push it to the cloud to update the code. You can choose freely wether to transfer the code to the controller from the downloaded IDE or the web editor then. 
+
+- Handle Arduino libraries:
+When using the downloaded IDE you need to install needed libraries to your computer, which you can do through the IDE itself. For the web editor you should not need to install libraries as they are already available in the Adruino Cloud.
+
+
 
 ### Putting everything together
 ![connect-controller](./images/connect-controller.jpg)
@@ -122,28 +131,16 @@ For example, if the temperature need to be 3 degrees higher, just add ```+3``` t
 float temperature = carrier.Env.readTemperature()+3;
 ```
 
-```python=
-import this as that
-
-def my_cool_function():
-    print('not much here')
-
-s.send(package)
-
-# Explain your code!
-```
-
 
 ### Data flow / Connectivity
 - Vireless protocols used: WiFi
 - Transport protocol used: 
-- Information models used:
+
 
 >How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols and API information models, if any.
 >- [ ] How often is the data sent? 
 >- [x] Which wireless protocols did you use (WiFi, LoRa, etc ...)?
 >- [ ] Which transport protocols were used (MQTT, webhook, etc ...)
->- [ ] Which information models were used (WoT TD, Fiware, etc...)
 >- [ ] *Elaborate on the design choices regarding data transmission and wireless protocols. That is how your choices affect the device range and battery consumption.
 
 
@@ -164,22 +161,22 @@ s.send(package)
 
 >Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in another way, or even better? Some pictures are nice!
 >- [ ] Show the final results of the project
->- [ ] Pictures
+>- [x] Pictures
 >- [ ] Video presentation of the project
 
-### References
+### Additional resources
+- [Arduino Basics](https://docs.arduino.cc/learn/)
 - [Arduino Language Reference](https://www.arduino.cc/reference/en/)
 - [All built in Arduino code examples](https://docs.arduino.cc/built-in-examples/)
 - [How to use the Arduino_MKRIoTCarrier library](https://www.arduino.cc/reference/en/libraries/arduino_mkriotcarrier/)
 - [MKR IoT Carrier Technical Reference/Cheat Sheet](https://docs.arduino.cc/tutorials/mkr-iot-carrier/mkr-iot-carrier-01-technical-reference)
-- [Arduino Basics](https://docs.arduino.cc/learn/)
 - [Getting started with IoT Cloud - official](https://docs.arduino.cc/cloud/iot-cloud)
 - [Getting started with IoT Cloud - in project hub](https://create.arduino.cc/projecthub/133030/iot-cloud-getting-started-c93255)
 - [Troubleshooting connection to IoT Cloud](https://support.arduino.cc/hc/en-us/articles/360019355679-If-your-device-can-t-be-added-or-won-t-connect-to-IoT-Cloud)
 - [IoT Cloud Technical Reference/Cheat sheet](https://docs.arduino.cc/cloud/iot-cloud/tutorials/technical-reference)
+- [Solution for connectivity issues in Arduino IoT Cloud](https://forum.arduino.cc/t/new-topic-error-in-iot-cloud-kit-tutorial/848136/5)
 - [Update wifi firmware and upload SSL certs - approximate guide](https://docs.arduino.cc/tutorials/generic/firmware-updater)
 - [Another certificate docs, closer to my actual flow](https://support.arduino.cc/hc/en-us/articles/360016119219-How-to-add-certificates-to-Wifi-Nina-Wifi-101-Modules-)
-- [Solution for connectivity issues in Arduino IoT Cloud](https://forum.arduino.cc/t/new-topic-error-in-iot-cloud-kit-tutorial/848136/5)
 - [Extra - Connect with WifiNINA lib](https://www.arduino.cc/en/Guide/MKRWiFi1010/connecting-to-wifi-network)
 - [WifiNINA reference](https://www.arduino.cc/reference/en/libraries/wifinina/)
 - [Using Webhooks](https://docs.arduino.cc/cloud/iot-cloud/tutorials/webhooks)
