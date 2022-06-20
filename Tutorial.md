@@ -9,7 +9,6 @@ Estimated time:
 
 This is a project for reading temperature and humidity at home to present daily readings in a diagram, together with weather readings from a weather station.
 
-
 ### Objective
 
 As the summers can be quite hot it would be interesting whether the inside temperature is affected in any way by the outside weather. For the scope of this project the IoT device will only make readings from inside with a WiFi connection. 
@@ -19,8 +18,6 @@ The outside readings will be relied by an Open API from a weather station, in a 
 Humidity readings are also included in order to see if a humidifyer could be justified to buy and if it is bought, to check that it keeps the humidity within accepted ranges. Perhaps the weather humidity somehow also could give some unexpected insights. 
 
 In order to have enough detailed readings to view the client application provides data for any chosen day with a 1-hour interval for that day. 
-
-
 
 ### Material
 All the material was bought from [https://www.electrokit.com/](https://www.electrokit.com/)
@@ -57,14 +54,12 @@ The lithium battery that can be used with the carrier (not included in the Ardui
 ![cable-to-connect](./images/cable-to-connect.jpg)
 The back- and red-cable to connect the carrier to the mounted controller when using the battery.
 
-
-
 ### Computer setup
 The device was programmed by using a M1 Mac that also runs Rosetta and by using the installed Arduino 2.0 IDE. 
 
 An arduino account was created and the bought kit was registered in order to access its included one year of the [Arduino Maker Plan](https://www.arduino.cc/cloud/plans). 
 
-The server- and client-application is built with [Next.js](https://nextjs.org/) which runs in a [Node.js](https://nodejs.org/en/) environment, Node also needs to be installed on the computer. For this, [Git](https://git-scm.com/) was used for version control and the code was written in the IDE [Visual Studio Code](https://code.visualstudio.com/). [React Apex Charts](https://www.npmjs.com/package/react-apexcharts) was used on the client side for displaying the diagrams. [Moment](https://www.npmjs.com/package/moment) is used both on the serverside and clientside to handle dates more easily than what is provided by the javascript's Date() class.
+The server- and client-application is built with [Next.js](https://nextjs.org/) which runs in a [Node.js](https://nodejs.org/en/) environment, Node also needs to be installed on the computer. For this, [Git](https://git-scm.com/) was used for version control and the code was written in the IDE [Visual Studio Code](https://code.visualstudio.com/). [React Apex Charts](https://www.npmjs.com/package/react-apexcharts) was used on the client side for displaying the diagrams. [Moment](https://www.npmjs.com/package/moment) is used both on the serverside and clientside to handle dates more easily.
 
 - Using downloaded IDE for Arduino:
 
@@ -107,13 +102,10 @@ For more professional setting it becomes much of a question about if the particu
 
 An important aspect could also be the short battery life as the carrier draws out the battery within a couple of days, depending on the battery. For professional use that may not be enough time for a wireless connection. Then the consideration for where to place it comes into play, since it needs to always be connected to a power source through the micro USB cable. 
 
-
-
 ### Platform
 To start with we will be using the Arduino IoT Cloud platform, using the 1-year Maker-tier that is included with the kit-purchase. Otherwise the plan costs about 6$ per month as a monthly subscription. 
 
 The most important differences between the free and the Maker plan:
-
 
 |           | Free | Maker |
 |-----------|------|-------|
@@ -172,8 +164,6 @@ CARRIER_CASE = true;
 
 The code for the server and client application is available in the [Home Environment](https://github.com/pr222/home-environment) repository. The server provides an API that communicates with the Arduino's IoT Cloud REST API and queries the REST API for 1 sensor reading per hour for one day (for both temperature and humidity) and returns the result to the client. The client only needs to specify in the request URL a query with the date formatted as YYYY-MM-DD. The server also lets the client ask for weather-readings that the server gets from [SMHI's Open API](http://opendata.smhi.se/apidocs/metobs/index.html). The client application then presents a diagram for one 24-hour day with data of temperature and humidity from the IoT thing as well as the weather information. The client application also lets the user choose from a calendar which day to present readings from.
 
-
-
 ### Data flow / Connectivity
 - Vireless protocols used: WiFi
 - Transport protocol used: 
@@ -188,12 +178,19 @@ The code for the server and client application is available in the [Home Environ
 
 ### Presenting the data
 
->Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
->- [ ] Provide visual examples of how the dashboard looks. Pictures needed.
->- [ ] How often is data saved in the database.
->- [ ] *Explain your choice of database.
->- [ ] *Automation/triggers of the data.
+The data is presented through a Next.js application by using React on the frontend and having an API on the backend that does the calls to the Arduino Cloud's REST API and the SMHI open weather API. 
 
+![application-yesterday](images/application-yesterday.png)
+
+In this case, as discussed previous about the platform, the Arduino IoT Cloud retains the data for 3 months according to the Maker-plan included with the kit purchase. 
+
+We have also set up the variables for the sensor readings to update every 1 second. For the client application however we only query a reading per hour for one particular day, since the variation of the data probably won't change that much to make any significant difference.
+
+If we would have used a database solution based on InfluxDB or perhaps using Elastic Search on top of a database we probably could have more easily played around with more varied queries and aggregated data. The REST API provided for the Arduino Cloud will however be enough for this case. 
+
+Since the client application only displays data per hour, it can be nice to setup a dashboard in the Arduino IoT Cloud's webpages to see that the data is updating as it should.
+
+![cloud-dashboard](images/cloud-dashboard.png)
 
 ### Finalizing the design
 ![connected-device](./images/everything-connected.jpg)
@@ -206,6 +203,14 @@ The code for the server and client application is available in the [Home Environ
 >- [x] Show the final results of the project
 >- [x] Pictures
 >- [ ] Video presentation of the project
+
+The project provided a good start to get going with IoT as a first IoT project. It was however very surprising how much of a struggle it would be to only to get the connection to the Arduino Cloud working. Even so, it has peeked my interest to continue exploring on how to do it more "manually" by using the different libraries that are available to establish different kinds of communications. Especially with a Raspberry Pi waiting in the cupboard there is so many possibilities ahead.
+
+In regards to the MKR IoT Carrier there is also much more functionalities to make use of, such as the [pressure sensor](https://www.st.com/resource/en/datasheet/dm00140895.pdf), the RGB lights and even the sensor for [measuring proximity, light, colors and gestures](https://docs.broadcom.com/doc/AV02-4191EN). 
+
+With the touch buttons together with the small screen there is also the possibility to create simple applications. One example first in mind comes to add different labels that could be associated to the temperature and humidity data, like "hanging laundry" or which room the device is currently placed in.
+
+Of course another perfect next step could be to use the soil moisture sensor that is also included in the kit and have the carrier's Buzzer "buzz out" a sound when the plant needs to be watered. 
 
 ### Additional resources
 - [Arduino Basics](https://docs.arduino.cc/learn/)
