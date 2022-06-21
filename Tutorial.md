@@ -130,7 +130,7 @@ Since the Cloud's REST API is limited to 10 requests per second it is limited fo
 
 - Thing code: [https://github.com/pr222/arduino](https://github.com/pr222/arduino) 
 - Application code: [https://github.com/pr222/home-environment](https://github.com/pr222/home-environment) 
-- Deployed at: [https://home-environment-lv2xivy73-pr222.vercel.app/](https://home-environment-lv2xivy73-pr222.vercel.app/)
+- Deployed at: [https://home-environment.vercel.app/](https://home-environment.vercel.app/)
 
 Needed libraries:
 - Arduino_MKRIoTCarrier (make sure to install the library together with any needed dependencies when prompted)
