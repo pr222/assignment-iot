@@ -225,7 +225,6 @@ The variables in this project is set up to send data to the cloud every 1 second
     A very minimal information model was used for the API as is described in the [Home Environment](https://github.com/pr222/home-environment#using-the-api) repository with only one endpoint that returns both temperature and humidity for the queried date. 
 
 ### Presenting the data
-
 The data is presented through a Next.js application by using React on the frontend and having an API on the backend that does the calls to the Arduino Cloud's REST API and the SMHI open weather API. 
 
 ![application-yesterday](images/application-yesterday.png)
@@ -241,16 +240,16 @@ Since the client application only displays data per hour, it can be nice to setu
 ![cloud-dashboard](images/cloud-dashboard.png)
 
 ### Finalizing the design
+
+A presentation video can be found at [https://youtu.be/6uPHFuRKkS8](https://youtu.be/6uPHFuRKkS8).
+
 ![connected-device](./images/everything-connected.jpg)
 ![device-in-case](./images/device-in-case.jpg)
 ![temp-reading](./images/temp-reading.jpg)
 ![humid-reading](./images/humid-reading.jpg)
 ![application-today](./images/application-today.png)
 ![application-yesterday](./images/application-yesterday.png)
->Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in another way, or even better? Some pictures are nice!
->- [x] Show the final results of the project
->- [x] Pictures
->- [ ] Video presentation of the project
+
 
 The project provided a good start to get going with IoT as a first IoT project. It was however very surprising how much of a struggle it would be to only to get the connection to the Arduino Cloud working. Even so, it has peeked my interest to continue exploring on how to do it more "manually" by using the different libraries that are available to establish different kinds of communications. Especially with a Raspberry Pi waiting in the cupboard there is so many possibilities ahead.
 
